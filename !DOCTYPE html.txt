@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yezzir Perfume</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <style>
+    /* Gold gradient hover effect */
+    .gold-hover:hover {
+      background: linear-gradient(90deg, #FFD700, #FFC107);
+      color: black !important;
+    }
+    /* Modal scale animation */
+    .modal-show {
+      animation: scaleIn 0.3s ease-out forwards;
+    }
+    @keyframes scaleIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body class="bg-white text-black dark:bg-black dark:text-white font-sans">
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-50 bg-white/80 dark:bg-black/80 border-b border-gray-200 dark:border-gray-800 backdrop-blur">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+      <a href="#home" class="font-extrabold text-xl">Yezzir <span class="text-yellow-500">Perfume</span></a>
+      <nav class="hidden md:flex gap-6">
+        <a href="#home" class="hover:text-yellow-500">Home</a>
+        <a href="#products" class="hover:text-yellow-500">Products</a>
+        <a href="#about" class="hover:text-yellow-500">About</a>
+        <a href="#contact" class="hover:text-yellow-500">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="text-center py-20 bg-gradient-to-r from-black via-gray-900 to-black text-white">
+    <h1 class="text-5xl font-extrabold">Luxury. Elegance. <span class="text-yellow-500">Yezzir</span>.</h1>
+    <p class="mt-4 max-w-2xl mx-auto">Discover timeless fragrances crafted with passion. Black, White, and Gold — the true essence of Yezzir Perfume.</p>
+    <a href="#products" class="mt-6 inline-block bg-yellow-500 text-black font-bold px-6 py-3 rounded-2xl shadow-lg hover:shadow-xl gold-hover transition-all duration-300">Shop Now</a>
+  </section>
+
+  <!-- Products -->
+  <section id="products" class="max-w-7xl mx-auto px-6 py-16">
+    <h2 class="text-3xl font-bold text-center mb-8">Our Collection</h2>
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="border rounded-3xl p-6 shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 flex flex-col items-center">
+        <img src="https://via.placeholder.com/300x300?text=Royal+Oud" class="w-40 h-40 mb-4 rounded-xl object-cover">
+        <h3 class="font-semibold text-lg">Royal Oud</h3>
+        <p class="text-gray-600 dark:text-gray-300 text-center mt-1">A luxurious blend of oud and amber.</p>
+        <p class="text-yellow-500 font-bold mt-2">$120</p>
+        <button onclick="openModal('Royal Oud')" class="mt-4 bg-yellow-500 text-black px-4 py-2 rounded-2xl font-semibold shadow-lg hover:shadow-xl gold-hover transition-all duration-300">Order</button>
+      </div>
+      <div class="border rounded-3xl p-6 shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 flex flex-col items-center">
+        <img src="https://via.placeholder.com/300x300?text=Golden+Musk" class="w-40 h-40 mb-4 rounded-xl object-cover">
+        <h3 class="font-semibold text-lg">Golden Musk</h3>
+        <p class="text-gray-600 dark:text-gray-300 text-center mt-1">Soft musk with warm vanilla.</p>
+        <p class="text-yellow-500 font-bold mt-2">$95</p>
+        <button onclick="openModal('Golden Musk')" class="mt-4 bg-yellow-500 text-black px-4 py-2 rounded-2xl font-semibold shadow-lg hover:shadow-xl gold-hover transition-all duration-300">Order</button>
+      </div>
+      <div class="border rounded-3xl p-6 shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 flex flex-col items-center">
+        <img src="https://via.placeholder.com/300x300?text=Velour+Noir" class="w-40 h-40 mb-4 rounded-xl object-cover">
+        <h3 class="font-semibold text-lg">Velour Noir</h3>
+        <p class="text-gray-600 dark:text-gray-300 text-center mt-1">Dark, elegant and unforgettable.</p>
+        <p class="text-yellow-500 font-bold mt-2">$150</p>
+        <button onclick="openModal('Velour Noir')" class="mt-4 bg-yellow-500 text-black px-4 py-2 rounded-2xl font-semibold shadow-lg hover:shadow-xl gold-hover transition-all duration-300">Order</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div id="orderModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50 z-50">
+    <div class="bg-white dark:bg-gray-900 rounded-3xl p-6 w-full max-w-md relative modal-show">
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-700 dark:text-gray-300 font-bold text-xl">×</button>
+      <h3 id="modalTitle" class="text-2xl font-bold mb-4 text-center"></h3>
+      <form id="orderForm" class="space-y-3">
+        <input type="text" name="customer_name" placeholder="Full Name" required class="w-full rounded-xl border px-3 py-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <input type="email" name="customer_email" placeholder="Email" required class="w-full rounded-xl border px-3 py-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <input type="text" name="customer_phone" placeholder="Phone Number" required class="w-full rounded-xl border px-3 py-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <input type="text" name="customer_address" placeholder="Shipping Address" required class="w-full rounded-xl border px-3 py-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <input type="number" name="quantity" placeholder="Quantity" min="1" value="1" required class="w-full rounded-xl border px-3 py-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <button type="submit" class="w-full bg-yellow-500 text-black font-bold py-2 rounded-2xl shadow-lg hover:shadow-xl gold-hover transition-all duration-300">Place Order</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    emailjs.init('HqMt9o6fQRy4Ibt8h');
+
+    function openModal(perfumeName){
+      const modal = document.getElementById('orderModal');
+      modal.classList.remove('hidden');
+      modal.querySelector('#modalTitle').innerText = `Order ${perfumeName}`;
+      modal.querySelector('.modal-show').classList.add('scaleIn');
+    }
+
+    function closeModal(){
+      document.getElementById('orderModal').classList.add('hidden');
+      document.getElementById('orderForm').reset();
+    }
+
+    document.getElementById('orderForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const form = e.target;
+      const perfumeName = document.getElementById('modalTitle').innerText.replace('Order ','');
+      const templateParams = {
+        customer_name: form.customer_name.value,
+        customer_email: form.customer_email.value,
+        customer_phone: form.customer_phone.value,
+        customer_address: form.customer_address.value,
+        perfume_name: perfumeName,
+        quantity: form.quantity.value
+      };
+
+      emailjs.send('service_86wyt9t','template_mksiuse', templateParams)
+        .then(function(response){
+          alert(`Order placed! ${perfumeName} x${form.quantity.value}`);
+          closeModal();
+        }, function(error){
+          alert('Error sending order. Please try again.');
+        });
+    });
+  </script>
+</body>
+</html>
